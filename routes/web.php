@@ -24,4 +24,6 @@ Route::post('store',[blogs::class,'store']);
 Route::get('show',[blogs::class,'show']);
 Route::post('edit',[blogs::class,'edit']);
 Route::get('login',[ControllerUser::class,'login']);
+Route::get('create',[ControllerUser::class,'create']);
+Route::post('storeuser',[ControllerUser::class,'store']);
 Route::post('check',[ControllerUser::class,'check']);

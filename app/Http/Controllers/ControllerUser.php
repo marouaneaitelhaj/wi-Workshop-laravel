@@ -35,7 +35,7 @@ class ControllerUser extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -46,7 +46,11 @@ class ControllerUser extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new user;
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->save();
     }
 
     /**
