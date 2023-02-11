@@ -22,9 +22,12 @@ class ControllerUser extends Controller
         $user = user::where('email',$request->email)->first();
         if($user){
             if($user->password == $request->password){
-                echo 'login success';
+                session_start();
+                session()->put('user',$user->name);
+                session()->put('id',$user->id);
+                return redirect('blogs');
             }else{
-                echo 'login fail';
+                return redirect('login');
             }}
             }
 

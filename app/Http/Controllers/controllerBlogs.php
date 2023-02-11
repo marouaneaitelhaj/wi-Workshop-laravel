@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\blogs;
 
-class blogs extends Controller
+class controllerBlogs extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class blogs extends Controller
      */
     public function index()
     {
-        echo 'index';
+        $blogs = blogs::join('user','user.id','=','blogs.user_id')->select('blogs.*','user.name')->get();
+        return view('blogs' , compact('blogs'));
     }
 
     /**
@@ -23,7 +25,7 @@ class blogs extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +36,12 @@ class blogs extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $blogs = new blogs;
+        $blogs->title = request('title');
+        $blogs->content = request('content');
+        $blogs->user_id = session('id');
+        $blogs->save();
+        return redirect('blogs');
     }
 
     /**
