@@ -19,15 +19,15 @@
 -->
 
     <div class="relative">
-        <form action="{{ url('store') }}" method="post">
+        <form action="{{ url('update/' . $blogs->id) }}" method="post">
             @csrf
-            <input type="text" name="title" placeholder="title"
+            <input type="text" value="{{ $blogs->title }}" name="title" placeholder="title"
                 class="w-full rounded-md border-gray-200 py-2.5 pr-10 shadow-sm sm:text-sm" />
-            <input type="text" name="content" placeholder="content"
+            <input type="text" value="{{ $blogs->content }}" name="content" placeholder="content"
                 class="w-full rounded-md border-gray-200 py-2.5 pr-10 shadow-sm sm:text-sm" />
 
             <button type="submit" class="rounded-full bg-rose-600 p-0.5 text-white hover:bg-rose-700">
-                <span>Add</span>
+                <span>Edit</span>
             </button>
         </form>
     </div>
@@ -49,32 +49,7 @@
 
   plugins: [require('@tailwindcss/line-clamp')]
 -->
-    @foreach ($blogs as $blog)
-        <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
-            @php
-                if (session('user') == $blog->name) {
-                    echo '<a href="edit/' . $blog->id . '">Edit Blog</a>';
-                }
-            @endphp
 
-            <div class="bg-white p-4 sm:p-6">
-                <time datetime="2022-10-10" class="block text-xs text-gray-500">
-                    {{ $blog->created_at }}
-                </time>
-
-                <a href="#">
-                    <h3 class="mt-0.5 text-lg text-gray-900">
-                        {{ $blog->title }}
-                    </h3>
-                </a>
-
-                <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3">
-                    {{ $blog->content }}
-                </p>
-            </div>
-            <p>{{ $blog->name }}</p>
-        </article>
-    @endforeach
 
 </body>
 

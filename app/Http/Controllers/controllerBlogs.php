@@ -14,8 +14,8 @@ class controllerBlogs extends Controller
      */
     public function index()
     {
-        $blogs = blogs::join('user','user.id','=','blogs.user_id')->select('blogs.*','user.name')->get();
-        return view('blogs' , compact('blogs'));
+        $blogs = blogs::join('user', 'user.id', '=', 'blogs.user_id')->select('blogs.*', 'user.name')->get();
+        return view('blogs', compact('blogs'));
     }
 
     /**
@@ -25,7 +25,6 @@ class controllerBlogs extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -52,7 +51,6 @@ class controllerBlogs extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -63,7 +61,12 @@ class controllerBlogs extends Controller
      */
     public function edit($id)
     {
-        //
+        $blogs = blogs::findOrFail($id);
+        if (session('id') !== $blogs->user_id) {
+            return view('error');
+        } else {
+            return view('show', compact('blogs'));
+        }
     }
 
     /**
@@ -75,7 +78,14 @@ class controllerBlogs extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $data = blogs::findOrFail($id);
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+        $data->update($validatedData);
+        return redirect('blogs');
     }
 
     /**

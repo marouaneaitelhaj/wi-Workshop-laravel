@@ -18,11 +18,13 @@ use App\Http\Controllers\ControllerUser;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('',[controllerBlogs::class,'index']);
 Route::get('blogs',[controllerBlogs::class,'index']);
+Route::post('update/{id}',[controllerBlogs::class,'update']);
+Route::get('edit/{id}',[controllerBlogs::class,'edit']);
 Route::get('create',[controllerBlogs::class,'create']);
 Route::post('store',[controllerBlogs::class,'store']);
-Route::get('show',[controllerBlogs::class,'show']);
-Route::post('edit',[controllerBlogs::class,'edit']);
+Route::get('show/{id}',[controllerBlogs::class,'show']);
 Route::get('login',[ControllerUser::class,'login']);
 Route::get('create',[ControllerUser::class,'create']);
 Route::post('storeuser',[ControllerUser::class,'store']);
