@@ -9,48 +9,35 @@
 </head>
 
 <body>
-    <!--
-  This component uses @tailwindcss/forms
-
-  yarn add @tailwindcss/forms
-  npm install @tailwindcss/forms
-
-  plugins: [require('@tailwindcss/forms')]
--->
-
-    <div class="relative">
-        <form action="{{ url('update/' . $blogs->id) }}" method="post">
+    
+    <div class="w-full max-w-sm mx-auto">
+        <form action="{{ url('update/' . $blogs->id) }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
-            <input type="text" value="{{ $blogs->title }}" name="title" placeholder="title"
-                class="w-full rounded-md border-gray-200 py-2.5 pr-10 shadow-sm sm:text-sm" />
-            <input type="text" value="{{ $blogs->content }}" name="content" placeholder="content"
-                class="w-full rounded-md border-gray-200 py-2.5 pr-10 shadow-sm sm:text-sm" />
-
-            <button type="submit" class="rounded-full bg-rose-600 p-0.5 text-white hover:bg-rose-700">
-                <span>Edit</span>
-            </button>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="title">
+                    Title
+                </label>
+                <input name="title" value="{{ $blogs->title }}"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="title" type="text" placeholder="Enter blog title here" />
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="content">
+                    Content
+                </label>
+                <textarea name="content"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="content" rows="5" placeholder="Enter blog content here">{{ $blogs->title }}</textarea>
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Publish
+                </button>
+            </div>
         </form>
     </div>
-
-    <!--
-  This component uses @tailwindcss/forms
-
-  yarn add @tailwindcss/forms
-  npm install @tailwindcss/forms
-
-  plugins: [require('@tailwindcss/forms')]
--->
-
-    <!--
-  This component uses @tailwindcss/line-clamp
-
-  yarn add @tailwindcss/line-clamp
-  npm install @tailwindcss/line-clamp
-
-  plugins: [require('@tailwindcss/line-clamp')]
--->
-
-
 </body>
 
 </html>

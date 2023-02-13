@@ -5,76 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <!--
-  This component uses @tailwindcss/forms
-
-  yarn add @tailwindcss/forms
-  npm install @tailwindcss/forms
-
-  plugins: [require('@tailwindcss/forms')]
--->
-
-    <div class="relative">
-        <form action="{{ url('store') }}" method="post">
+    <a href="logout">LOGOUT</a>
+    <div class="w-full max-w-sm mx-auto">
+        <form action="{{ url('store') }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
-            <input type="text" name="title" placeholder="title"
-                class="w-full rounded-md border-gray-200 py-2.5 pr-10 shadow-sm sm:text-sm" />
-            <input type="text" name="content" placeholder="content"
-                class="w-full rounded-md border-gray-200 py-2.5 pr-10 shadow-sm sm:text-sm" />
-
-            <button type="submit" class="rounded-full bg-rose-600 p-0.5 text-white hover:bg-rose-700">
-                <span>Add</span>
-            </button>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="title">
+                    Title
+                </label>
+                <input name="title"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="title" type="text" placeholder="Enter blog title here" />
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="content">
+                    Content
+                </label>
+                <textarea name="content"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="content" rows="5" placeholder="Enter blog content here"></textarea>
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Publish
+                </button>
+            </div>
         </form>
     </div>
+    <div class="w-full max-w-sm mx-auto">
 
-    <!--
-  This component uses @tailwindcss/forms
-
-  yarn add @tailwindcss/forms
-  npm install @tailwindcss/forms
-
-  plugins: [require('@tailwindcss/forms')]
--->
-
-    <!--
-  This component uses @tailwindcss/line-clamp
-
-  yarn add @tailwindcss/line-clamp
-  npm install @tailwindcss/line-clamp
-
-  plugins: [require('@tailwindcss/line-clamp')]
--->
+        <h2 class="text-lg font-bold mb-4">Blog List</h2>
+    </div>
     @foreach ($blogs as $blog)
-        <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
-            @php
-                if (session('user') == $blog->name) {
-                    echo '<a href="edit/' . $blog->id . '">Edit Blog</a>';
-                }
-            @endphp
+        <div class="w-full max-w-sm mx-auto">
 
-            <div class="bg-white p-4 sm:p-6">
-                <time datetime="2022-10-10" class="block text-xs text-gray-500">
-                    {{ $blog->created_at }}
-                </time>
-
-                <a href="#">
-                    <h3 class="mt-0.5 text-lg text-gray-900">
-                        {{ $blog->title }}
-                    </h3>
-                </a>
-
-                <p class="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3">
-                    {{ $blog->content }}
-                </p>
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                @php
+                    if (session('user') == $blog->name) {
+                        echo '<a href="edit/' . $blog->id . '">Edit Blog</a>';
+                    }
+                @endphp
+                <div class="mb-4">
+                    <div class="border-b pb-4 mb-4">
+                        <p class="text-gray-700 mb-2">Date of Release: {{ $blog->created_at }}</p>
+                        <p class="text-gray-700 mb-2">Author: {{ $blog->name }}</p>
+                        <h4 class="text-sm font-medium mb-2">Title: {{ $blog->title }}</h4>
+                        <p class="text-gray-700">Content: {{ $blog->content }}</p>
+                    </div>
+                </div>
+                @php
+                    if (session('user') == $blog->name) {
+                        echo '<a href="destroy/' . $blog->id . '">Delete this one</a>';
+                    }
+                @endphp
             </div>
-            <p>{{ $blog->name }}</p>
-        </article>
+        </div>
     @endforeach
+
 
 </body>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
+
 class ControllerUser extends Controller
 {
     /**
@@ -15,21 +16,27 @@ class ControllerUser extends Controller
     {
         //
     }
-    public function login(){
+    public function login()
+    {
+        // if (session('id') !== null) {
+        //     return redirect('blogs');
+        // }
         return view('login');
     }
-    public function check(Request $request){
-        $user = user::where('email',$request->email)->first();
-        if($user){
-            if($user->password == $request->password){
+    public function check(Request $request)
+    {
+        $user = user::where('email', $request->email)->first();
+        if ($user) {
+            if ($user->password == $request->password) {
                 session_start();
-                session()->put('user',$user->name);
-                session()->put('id',$user->id);
+                session()->put('user', $user->name);
+                session()->put('id', $user->id);
                 return redirect('blogs');
-            }else{
+            } else {
                 return redirect('login');
-            }}
             }
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -39,6 +46,10 @@ class ControllerUser extends Controller
     public function create()
     {
         return view('create');
+    }
+    public function logout()
+    {
+        echo session('id');
     }
 
     /**

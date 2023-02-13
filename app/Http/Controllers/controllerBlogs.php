@@ -14,6 +14,9 @@ class controllerBlogs extends Controller
      */
     public function index()
     {
+        if (session('id') == null) {
+            return redirect('login');
+        }
         $blogs = blogs::join('user', 'user.id', '=', 'blogs.user_id')->select('blogs.*', 'user.name')->get();
         return view('blogs', compact('blogs'));
     }
@@ -35,6 +38,9 @@ class controllerBlogs extends Controller
      */
     public function store(Request $request)
     {
+        if (session('id') == null) {
+            return redirect('login');
+        }
         $blogs = new blogs;
         $blogs->title = request('title');
         $blogs->content = request('content');
@@ -61,6 +67,9 @@ class controllerBlogs extends Controller
      */
     public function edit($id)
     {
+        if (session('id') == null) {
+            return redirect('login');
+        }
         $blogs = blogs::findOrFail($id);
         if (session('id') !== $blogs->user_id) {
             return view('error');
@@ -79,6 +88,9 @@ class controllerBlogs extends Controller
     public function update(Request $request, $id)
     {
 
+        if (session('id') == null) {
+            return redirect('login');
+        }
         $data = blogs::findOrFail($id);
         $validatedData = $request->validate([
             'title' => 'required|max:255',
@@ -96,6 +108,15 @@ class controllerBlogs extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (session('id') == null) {
+            return redirect('login');
+        }
+        $blogs = blogs::findOrFail($id);
+        if (session('id') !== $blogs->user_id) {
+            return view('error');
+        } else {
+            $blogs->delete();
+            return redirect('blogs');
+        }
     }
 }

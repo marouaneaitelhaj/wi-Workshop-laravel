@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controllerBlogs;
 use App\Http\Controllers\ControllerUser;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +20,7 @@ Route::get('/', function () {
 Route::get('',[controllerBlogs::class,'index']);
 Route::get('blogs',[controllerBlogs::class,'index']);
 Route::post('update/{id}',[controllerBlogs::class,'update']);
+Route::get('destroy/{id}',[controllerBlogs::class,'destroy']);
 Route::get('edit/{id}',[controllerBlogs::class,'edit']);
 Route::get('create',[controllerBlogs::class,'create']);
 Route::post('store',[controllerBlogs::class,'store']);
@@ -29,3 +29,4 @@ Route::get('login',[ControllerUser::class,'login']);
 Route::get('create',[ControllerUser::class,'create']);
 Route::post('storeuser',[ControllerUser::class,'store']);
 Route::post('check',[ControllerUser::class,'check']);
+Route::get('logout',[ControllerUser::class,'logout']);
