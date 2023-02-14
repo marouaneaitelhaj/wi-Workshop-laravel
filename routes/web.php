@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controllerBlogs;
 use App\Http\Controllers\ControllerUser;
+use App\Http\Controllers\tabletestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +31,9 @@ Route::get('create',[ControllerUser::class,'create']);
 Route::post('storeuser',[ControllerUser::class,'store']);
 Route::post('check',[ControllerUser::class,'check']);
 Route::get('logout',[ControllerUser::class,'logout']);
+
+
+Route::get('addtest',[tabletestController::class,'index']);
+Route::post('storetest',[tabletestController::class,'store']);
+Route::get('readAbdo',[tabletestController::class,'readAbdo']);
+
